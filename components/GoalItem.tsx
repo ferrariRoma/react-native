@@ -1,20 +1,38 @@
-import { StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text, Pressable, View } from 'react-native';
+import { GoalFlatList } from '../App';
 
 interface ItemData {
-  itemData: string;
+  itemData: GoalFlatList;
+  deleteGoalHandler: (arg: number) => void;
 }
 
-const GoalItem = ({ itemData }: ItemData) => {
-  return <Text style={styles.goalItem}>{itemData}</Text>;
+const GoalItem = ({ itemData, deleteGoalHandler }: ItemData) => {
+  return (
+    <View style={styles.WrapGoalItem}>
+      <Pressable
+        // android_ripple={{ color: '#35f38a' }}
+        style={({ pressed }) => pressed && styles.pressedItem}
+        onPress={deleteGoalHandler.bind(this, itemData.id)}
+      >
+        <Text style={styles.goalItem}>{itemData.goal}</Text>
+      </Pressable>
+    </View>
+  );
 };
 
 export default GoalItem;
 
 const styles = StyleSheet.create({
   goalItem: {
-    marginVertical: 15,
     borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 1,
+    padding: 8,
+  },
+  pressedItem: {
+    opacity: 0.5,
+  },
+  WrapGoalItem: {
+    marginVertical: 15,
     padding: 9,
   },
 });

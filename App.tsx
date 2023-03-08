@@ -3,8 +3,19 @@ import { useState } from 'react';
 import GoalItem from './components/GoalItem';
 import GoalInput from './components/GoalInput';
 
+export interface GoalFlatList {
+  goal: string;
+  id: number;
+}
+
 export default function App() {
-  const [courseGoals, setCourseGoals] = useState<string[]>([]);
+  const [courseGoals, setCourseGoals] = useState<GoalFlatList[]>([]);
+
+  const deleteGoalHandler = (id: number) => {
+    setCourseGoals((prev) => {
+      return prev.filter((goal) => goal.id !== id);
+    });
+  };
 
   return (
     <View style={styles.appContainer}>
@@ -13,7 +24,15 @@ export default function App() {
         <FlatList
           data={courseGoals}
           renderItem={(itemData) => {
-            return <GoalItem itemData={itemData.item} />;
+            return (
+              <GoalItem
+                deleteGoalHandler={deleteGoalHandler}
+                itemData={itemData.item}
+              />
+            );
+          }}
+          keyExtractor={(item, index) => {
+            return `${index}`;
           }}
           alwaysBounceVertical={false}
         />

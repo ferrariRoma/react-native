@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { GoalFlatList } from '../App';
 
 interface GoalInputProps {
-  setCourseGoals: React.Dispatch<React.SetStateAction<string[]>>;
+  setCourseGoals: React.Dispatch<React.SetStateAction<GoalFlatList[]>>;
 }
 
 const GoalInput = ({ setCourseGoals }: GoalInputProps) => {
@@ -16,7 +17,7 @@ const GoalInput = ({ setCourseGoals }: GoalInputProps) => {
   const addGoalHandler = (): void => {
     if (goal === '') return;
     setCourseGoals((prev) => {
-      return [...prev, goal];
+      return [...prev, { goal, id: Math.random() * 99 }];
     });
     setGoal('');
   };
