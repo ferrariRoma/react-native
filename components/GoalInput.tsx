@@ -1,12 +1,18 @@
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View } from 'react-native';
+import { Button, StyleSheet, TextInput, View, Modal } from 'react-native';
 import { GoalFlatList } from '../App';
 
 interface GoalInputProps {
   setCourseGoals: React.Dispatch<React.SetStateAction<GoalFlatList[]>>;
+  isModal: boolean;
+  modalHandler: () => void;
 }
 
-const GoalInput = ({ setCourseGoals }: GoalInputProps) => {
+const GoalInput = ({
+  setCourseGoals,
+  isModal,
+  modalHandler,
+}: GoalInputProps) => {
   const [goal, setGoal] = useState('');
 
   const goalInputHandler = (input: string): void => {
@@ -23,15 +29,20 @@ const GoalInput = ({ setCourseGoals }: GoalInputProps) => {
   };
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        onChangeText={goalInputHandler}
-        style={styles.textInput}
-        value={goal}
-        placeholder="Your course goal!"
-      />
-      <Button onPress={addGoalHandler} title="Add Goal" />
-    </View>
+    <Modal visible={isModal} animationType="slide">
+      <View style={styles.inputContainer}>
+        <TextInput
+          onChangeText={goalInputHandler}
+          style={styles.textInput}
+          value={goal}
+          placeholder="Your course goal!"
+        />
+        <View style={styles.buttonWrapper}>
+          <Button onPress={addGoalHandler} title="Add Goal" />
+          <Button onPress={modalHandler} title="Cancel" />
+        </View>
+      </View>
+    </Modal>
   );
 };
 
@@ -40,8 +51,7 @@ export default GoalInput;
 const styles = StyleSheet.create({
   inputContainer: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 24,
     borderBottomWidth: 1,
@@ -52,7 +62,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#001aff',
     width: '70%',
-    marginRight: 8,
+    marginBottom: 20,
     padding: 8,
+  },
+  buttonWrapper: {
+    height: 100,
+    justifyContent: 'space-between',
   },
 });
