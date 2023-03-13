@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { Button, StyleSheet, TextInput, View, Modal } from 'react-native';
+import {
+  Button,
+  StyleSheet,
+  TextInput,
+  View,
+  Modal,
+  Image,
+} from 'react-native';
 import { GoalFlatList } from '../App';
 
 interface GoalInputProps {
@@ -31,6 +38,10 @@ const GoalInput = ({
   return (
     <Modal visible={isModal} animationType="slide">
       <View style={styles.inputContainer}>
+        <Image
+          style={styles.image}
+          source={require('../assets/images/goal.png')}
+        />
         <TextInput
           onChangeText={goalInputHandler}
           style={styles.textInput}
@@ -39,7 +50,7 @@ const GoalInput = ({
         />
         <View style={styles.buttonWrapper}>
           <Button onPress={addGoalHandler} title="Add Goal" />
-          <Button onPress={modalHandler} title="Cancel" />
+          <Button onPress={modalHandler} title="Cancel" color="#f31282" />
         </View>
       </View>
     </Modal>
@@ -53,14 +64,18 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 24,
-    borderBottomWidth: 1,
-    borderBottomColor: '#cccccc',
+    backgroundColor: '#311b6b',
+  },
+  image: {
+    width: 100,
+    height: 100,
+    margin: 20,
   },
   textInput: {
-    // flex: 1,
     borderWidth: 1,
-    borderColor: '#001aff',
+    borderColor: '#e4d0ff',
+    backgroundColor: '#e4d0ff',
+    color: '#120438',
     width: '70%',
     marginBottom: 20,
     padding: 8,
@@ -68,5 +83,6 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     height: 100,
     justifyContent: 'space-between',
+    flexDirection: 'row',
   },
 });

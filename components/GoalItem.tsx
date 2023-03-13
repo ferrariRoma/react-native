@@ -30,9 +30,10 @@ const styles = StyleSheet.create({
   },
   pressedItem: {
     opacity: 0.5,
+    backgroundColor: '#84ccd5',
   },
   WrapGoalItem: {
-    marginVertical: 15,
-    padding: 9,
+    marginVertical: 30,
+    paddingHorizontal: 50,
   },
 });
